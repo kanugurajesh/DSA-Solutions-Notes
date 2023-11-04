@@ -1,5 +1,25 @@
 // 1283. Find the Smallest Divisor Given a Threshold
 
+// Brute force approach
+
+class Solution {
+    public int smallestDivisor(int[] nums,int threshold) {
+        int count = 1;
+        while(true) {
+            int sum = 0;
+            for(int num: nums) {
+                sum += Math.ceil((double) num / (double) count)
+            }
+            if(sum == threshold) {
+                return count;
+            }
+            count++;
+        }
+        return count;
+    }
+}
+
+// Optimal approach
 class Solution {
 
     // function to find the largest element in an array
