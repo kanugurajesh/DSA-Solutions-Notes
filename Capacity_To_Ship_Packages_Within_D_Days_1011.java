@@ -71,3 +71,57 @@ class Solution {
 
 # Optimal Approach
 
+class Solution {
+
+    // finding the number of days a ship will take to transport with limit cap
+    public int findDays(int[] weights, int cap, int length) {
+        int days = 1;
+        int load = 0;
+        for(int i=0;i<length;i++) {
+            if(load + weights[i] > cap) {
+                days = days + 1;
+                load = weights[i];
+            } else {
+                load += weights[i];
+            }
+        }
+        return days;
+    }
+
+    // finding the minimum capacity and maximum capacity
+    public int[] findMax(int[] nums, int length) {
+        int sum = nums[0];
+        int elem0 = nums[0];
+        for (int i = 1; i < length; i++) {
+            if (nums[i] > elem0) {
+                elem0 = nums[i];
+            }
+            sum += nums[i];
+        }
+
+        // Create an array and populate it with 'sum' and 'elem0'
+        int[] result = new int[] {elem0, sum };
+        return result;
+    }
+
+
+    public int shipWithinDays(int[] weights, int days) {
+        int length = weights.length;
+        int[] data = findMax(weights,length);
+        int low = data[0];
+        int high = data[1];
+
+        // finding the days using binary search
+        while(low<=high) {
+            int mid = (low + high)/2;
+            int noOfDays = findDays(weights,mid,length);
+            if(noOfDays <= days) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return low;
+    }
+}
