@@ -1,2 +1,3 @@
 # DSA-Solutions-Notes
-Sharing my notes and solutions for DSA concepts here
+
+Get Solutions to leetcode questions here from starting to ending you will find all the approaches from brute to optimal approach
