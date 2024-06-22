@@ -37,3 +37,36 @@ class Solution {
 
 // Optimal Solution
 
+class Solution {
+
+    public static int binarySearch(int[] numbers, int target, int number, int length, int start) {
+
+        int end = length - 1;
+
+        while (start <= end) {
+            int mid = start + (end - start)/2;
+            int summ = number + numbers[mid];
+
+            if (summ == target) {
+                return mid;
+            } else if (summ < target) {
+                start = mid + 1;
+            } else end = mid - 1;
+        }
+        return -1;
+    }
+
+    public int[] twoSum(int[] numbers, int target) {
+        int length = numbers.length;
+        int[] result = {-1, -1};
+
+        for(int i=0;i<length;i++) {
+            int res = binarySearch(numbers, target, numbers[i], length, i+1 );
+            if (res != -1) {
+                result = new int[]{i+1, res+1};
+                break;
+            }
+        }
+        return result;
+    }
+}
