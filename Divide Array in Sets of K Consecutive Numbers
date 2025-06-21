@@ -1,0 +1,58 @@
+// 1296. Divide Array in Sets of K Consecutive Numbers
+// Solved
+// Medium
+// Topics
+// premium lock icon
+// Companies
+// Hint
+// Given an array of integers nums and a positive integer k, check whether it is possible to divide this array into sets of k consecutive numbers.
+
+// Return true if it is possible. Otherwise, return false.
+
+ 
+
+// Example 1:
+
+// Input: nums = [1,2,3,3,4,4,5,6], k = 4
+// Output: true
+// Explanation: Array can be divided into [1,2,3,4] and [3,4,5,6].
+// Example 2:
+
+// Input: nums = [3,2,1,2,3,4,3,4,5,9,10,11], k = 3
+// Output: true
+// Explanation: Array can be divided into [1,2,3] , [2,3,4] , [3,4,5] and [9,10,11].
+// Example 3:
+
+// Input: nums = [1,2,3,4], k = 3
+// Output: false
+// Explanation: Each array should be divided in subarrays of size 3.
+
+import java.util.*;
+
+class Solution {
+    public boolean isPossibleDivide(int[] nums, int k) {
+
+        if (nums.length % k != 0) return false;
+
+        TreeMap<Integer, Integer> countMap = new TreeMap<>();
+        for (int num : nums) {
+            countMap.put(num, countMap.getOrDefault(num, 0) + 1);
+        }
+
+        for (int num : countMap.keySet()) {
+            int freq = countMap.get(num);
+            if (freq > 0) {
+                for (int i = 1; i < k; i++) {
+                    int nextNum = num + i;
+                    if (countMap.getOrDefault(nextNum, 0) < freq) {
+                        return false;
+                    }
+                    countMap.put(nextNum, countMap.get(nextNum) - freq);
+                }
+            }
+        }
+
+        return true;
+
+    }
+}
